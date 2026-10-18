@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessible Page Structure Demo</title>
+    <style>
+      :root {
+        --background: #f5f7fb;
+        --surface: #ffffff;
+        --surface-alt: #eef4ff;
+        --text: #1f2937;
+        --muted: #475467;
+        --primary: #0b57d0;
+        --primary-strong: #083b9b;
+        --border: #dfe3ec;
+        --success-bg: #eafaf1;
+        --success-text: #0b6b3c;
+        --focus: #ffbf47;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--background);
+      }
+
+      a {
+        color: var(--primary);
+      }
+
+      a:focus,
+      button:focus,
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: -3rem;
+        background: var(--primary-strong);
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+        z-index: 1000;
+      }
+
+      .skip-link:focus {
+        top: 1rem;
+      }
+
+      .site-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .topbar {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .nav-list {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-list a {
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .nav-list a:hover,
+      .nav-list a:focus {
+        text-decoration: underline;
+      }
+
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 4rem;
+      }
+
+      .hero {
+        background: var(--surface-alt);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      h1, h2, h3 {
+        line-height: 1.2;
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 0.75rem;
+      }
+
+      .lead {
+        max-width: 65ch;
+        font-size: 1.125rem;
+        color: var(--muted);
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+        gap: 2rem;
+      }
+
+      .content-section,
+      .aside-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+      }
+
+      .content-section {
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-list,
+      .checklist {
+        margin: 1rem 0 0;
+        padding-left: 1.25rem;
+      }
+
+      .feature-list li,
+      .checklist li {
+        margin-bottom: 0.5rem;
+      }
+
+      .status {
+        background: var(--success-bg);
+        color: var(--success-text);
+        border-left: 4px solid var(--success-text);
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+      }
+
+      form {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .field {
+        display: grid;
+        gap: 0.4rem;
+      }
+
+      label {
+        font-weight: 600;
+      }
+
+      input,
+      textarea,
+      select,
+      button {
+        font: inherit;
+      }
+
+      input,
+      textarea,
+      select {
+        padding: 0.7rem 0.8rem;
+        border: 1px solid var(--border);
+        border-radius: 0.4rem;
+        background: #fff;
+        color: var(--text);
+      }
+
+      button {
+        width: fit-content;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 0.4rem;
+        padding: 0.75rem 1.25rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover,
+      button:focus {
+        background: var(--primary-strong);
+      }
+
+      footer {
+        margin-top: 2rem;
+        border-top: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1.25rem;
+        color: var(--muted);
+      }
+
+      @media (max-width: 760px) {
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="topbar">
+        <a class="brand" href="#">Inclusive Web</a>
+
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#guidelines">Guidelines</a></li>
+            <li><a href="#checklist">Checklist</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="page">
+      <section class="hero" aria-labelledby="page-title">
+        <h1 id="page-title">Accessible page structure</h1>
+        <p class="lead">
+          A well-structured page improves navigation, supports assistive technologies,
+          and helps all users understand the content more easily.
+        </p>
+      </section>
+
+      <div class="content-grid">
+        <div>
+          <article aria-labelledby="overview">
+            <section class="content-section" id="overview">
+              <h2>Overview</h2>
+              <p>
+                Page structure provides meaning to content through headings, landmarks,
+                labels, and grouping. This helps people who use keyboards, screen readers,
+                and other assistive tools understand the layout and move through it efficiently.
+              </p>
+
+              <ul class="feature-list">
+                <li>Use semantic elements such as <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;main&gt;</code>.</li>
+                <li>Organise content with clear headings from <code>h1</code> to <code>h6</code>.</li>
+                <li>Group related content with sections and articles.</li>
+                <li>Provide visible focus styles and a logical reading order.</li>
+              </ul>
+            </section>
+          </article>
+
+          <section class="content-section" id="guidelines" aria-labelledby="guidelines-title">
+            <h2 id="guidelines-title">Guidelines</h2>
+            <p>
+              The WCAG and WAI recommendations emphasise perceivable, operable,
+              understandable, and robust content. Good structure supports these goals.
+            </p>
+
+            <ul class="checklist">
+              <li>Include a clear page title and unique main heading.</li>
+              <li>Use landmarks to identify site regions and navigation.</li>
+              <li>Ensure each form control has an associated label.</li>
+              <li>Keep content and interaction patterns predictable.</li>
+            </ul>
+          </section>
+
+          <section class="content-section" id="checklist" aria-labelledby="checklist-title">
+            <h2 id="checklist-title">Accessibility checklist</h2>
+            <ul class="checklist">
+              <li>Keyboard users can reach all links and buttons.</li>
+              <li>Focus remains visible throughout the page.</li>
+              <li>Headings follow a logical hierarchy.</li>
+              <li>Page regions are announced correctly by screen readers.</li>
+            </ul>
+          </section>
+        </div>
+
+        <aside aria-label="Related information" class="aside-box">
+          <h2>Quick notes</h2>
+          <p class="status" role="status" aria-live="polite">
+            Accessibility should be considered during design, development, and testing.
+          </p>
+
+          <h3>Common techniques</h3>
+          <ul class="feature-list">
+            <li>Use semantic HTML before custom widgets.</li>
+            <li>Provide strong contrast between text and background.</li>
+            <li>Do not rely on colour alone to convey meaning.</li>
+          </ul>
+        </aside>
+      </div>
+
+      <section id="contact" class="content-section" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact us</h2>
+        <form aria-describedby="contact-help">
+          <p id="contact-help">Please complete the form below to request accessibility guidance.</p>
+
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+
+          <div class="field">
+            <label for="topic">Topic</label>
+            <select id="topic" name="topic">
+              <option value="">Select a topic</option>
+              <option value="keyboard">Keyboard accessibility</option>
+              <option value="screen-reader">Screen reader testing</option>
+              <option value="contrast">Colour contrast</option>
+              <option value="wcag">WCAG guidance</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5"></textarea>
+          </div>
+
+          <button type="submit">Submit request</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <p>&copy; 2026 Inclusive Web. Built with accessibility in mind.</p>
+      </div>
+    </footer>
+  </body>
+</html>
