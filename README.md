@@ -15,6 +15,7 @@ Accessibility_Testing/
 │     └─ accessibility-demo.html
 ├─ tests/
 │  └─ accessibility/
+│     ├─ axe-accessibility.spec.js
 │     ├─ keyboard-navigation.spec.js
 │     └─ page-structure.spec.js
 ├─ playwright-report/
@@ -120,6 +121,18 @@ WCAG defines conformance levels as follows:
 npm install
 npm run test:a11y
 ```
+
+Run the Axe accessibility checks only with:
+
+```bash
+npm run test:axe
+```
+
+The Axe suite scans the full demo page against WCAG 2.0, 2.1, and 2.2 A/AA
+rules, checks the contact form, and runs a focused colour-contrast check.
+Violations are included in the test failure output with affected markup and
+suggested fixes. Automated Axe checks complement, but do not replace, manual
+keyboard and screen reader testing.
 
 Run just the keyboard navigation tests with:
 
