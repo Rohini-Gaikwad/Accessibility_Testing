@@ -15,6 +15,7 @@ Accessibility_Testing/
 │     └─ accessibility-demo.html
 ├─ tests/
 │  └─ accessibility/
+│     ├─ keyboard-navigation.spec.js
 │     └─ page-structure.spec.js
 ├─ playwright-report/
 ├─ test-results/
@@ -120,6 +121,17 @@ npm install
 npm run test:a11y
 ```
 
+Run just the keyboard navigation tests with:
+
+```bash
+npx playwright test tests/accessibility/keyboard-navigation.spec.js
+```
+
+The keyboard suite checks skip-link access, expected Tab and Shift+Tab order,
+visible keyboard focus, Enter activation of navigation links, and keyboard
+interaction with form controls. These browser checks complement manual testing
+with assistive technologies and real keyboard users.
+
 ## Best Practices
 
 - Build semantic HTML before adding custom widgets
@@ -132,4 +144,3 @@ npm run test:a11y
 ## Conclusion
 
 Accessibility testing is a continuous part of quality assurance and user experience design. By validating keyboard support, screen reader compatibility, colour contrast, and WCAG compliance, teams can build more inclusive and usable digital products.
-
